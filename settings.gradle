@@ -1,0 +1,2 @@
+rootProject.name = 'JRV'
+include('lib')
