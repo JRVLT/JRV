@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import ga.geist.jrv.auth.AuthStrategy;
 import ga.geist.jrv.events.Event;
 import ga.geist.jrv.packets.serverbound.AuthenticatePacket;
+import ga.geist.jrv.registries.ClientPacketRegistry;
 import ga.geist.jrv.registries.RegistryRegistry;
 import ga.geist.jrv.utils.RestUtils;
 
@@ -20,6 +21,7 @@ public class RevoltBridge {
     private URI restUrl;
     private List<RevoltEventListener> eventListeners = new ArrayList<>();
     private RegistryRegistry registries = new RegistryRegistry();
+    private ClientPacketRegistry s2cPacketRegistry = new ClientPacketRegistry();
     private SocketConnector connector;
 
     private String sessionToken;
@@ -96,6 +98,15 @@ public class RevoltBridge {
      */
     public String getInstanceRoot() {
         return instanceRoot.toString(2);
+    }
+
+    /**
+     * Retrieve the ClientPacketRegistry of the bridge.
+     * 
+     * @return The client packet registry
+     */
+    public ClientPacketRegistry getS2cPacketRegistry() {
+        return s2cPacketRegistry;
     }
 
     /**
