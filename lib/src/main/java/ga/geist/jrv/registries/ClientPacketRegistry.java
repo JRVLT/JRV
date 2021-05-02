@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ga.geist.jrv.packets.ClientboundPacket;
+import ga.geist.jrv.packets.clientbound.*;
 
 /**
  * Registry of client packets.
@@ -16,7 +17,7 @@ public class ClientPacketRegistry {
      * included packets.
      */
     public ClientPacketRegistry() {
-        //
+        add("Ready", new ReadyPacket());
     }
 
     /**

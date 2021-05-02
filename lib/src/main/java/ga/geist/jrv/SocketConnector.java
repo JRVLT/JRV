@@ -56,4 +56,13 @@ public class SocketConnector extends WebSocketClient {
     public void onClose(int code, String reason, boolean remote) {
         this.bridge.dispatch(new WSDroppedEvent(code, reason, remote));
     }
+
+    /**
+     * Get the active bridge
+     * 
+     * @return The bridge
+     */
+    public RevoltBridge getBridge() {
+        return bridge;
+    }
 }

@@ -1,6 +1,6 @@
 package ga.geist.jrv.packets;
 
-import org.java_websocket.client.WebSocketClient;
+import ga.geist.jrv.SocketConnector;
 
 /**
  * Clientbound (i.e. S2C) packet interface.
@@ -12,5 +12,5 @@ public interface ClientboundPacket {
      * @param stringMessage Raw message (as a string)
      * @param client        WebSocket Client
      */
-    public void pass(String stringMessage, WebSocketClient client);
+    public void pass(String stringMessage, SocketConnector client);
 }
