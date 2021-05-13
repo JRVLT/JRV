@@ -15,6 +15,7 @@ public class RegistryRegistry {
     private UserRegistry userRegistry;
     private DirectMessageRegistry dmRegistry;
     private ChannelRegistry channelRegistry;
+    private MessageRegistry messageRegistry;
 
     /**
      * Get registry of group DMs
@@ -53,6 +54,15 @@ public class RegistryRegistry {
     }
 
     /**
+     * Get registry of messages
+     * 
+     * @return Registry of messages
+     */
+    public MessageRegistry getMessageRegistry() {
+        return messageRegistry;
+    }
+
+    /**
      * Construct an instance
      */
     public RegistryRegistry() {
@@ -60,5 +70,6 @@ public class RegistryRegistry {
         this.userRegistry = new UserRegistry();
         this.dmRegistry = new DirectMessageRegistry();
         this.channelRegistry = new ChannelRegistry();
+        this.messageRegistry = new MessageRegistry();
     }
 }

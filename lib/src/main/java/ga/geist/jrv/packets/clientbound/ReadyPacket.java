@@ -14,6 +14,9 @@ import ga.geist.jrv.types.DirectMessage;
 import ga.geist.jrv.types.GroupDM;
 import ga.geist.jrv.types.User;
 
+/**
+ * Ready packet
+ */
 public class ReadyPacket implements ClientboundPacket {
     private void addUsers(JSONObject message, RevoltBridge bridge) {
         JSONArray users = message.getJSONArray("users");

@@ -18,6 +18,7 @@ public class ClientPacketRegistry {
      */
     public ClientPacketRegistry() {
         add("Ready", new ReadyPacket());
+        add("Message", new MessagePacket());
     }
 
     /**
