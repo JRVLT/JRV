@@ -1,6 +1,9 @@
 package ga.geist.jrv;
 
 import java.net.URI;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -11,6 +14,7 @@ import ga.geist.jrv.events.WSDroppedEvent;
 import ga.geist.jrv.events.WSErrorEvent;
 import ga.geist.jrv.events.WSOpenEvent;
 import ga.geist.jrv.packets.ClientboundPacket;
+import ga.geist.jrv.packets.serverbound.PingPacket;
 import ga.geist.jrv.registries.ClientPacketRegistry;
 
 /**
@@ -18,6 +22,7 @@ import ga.geist.jrv.registries.ClientPacketRegistry;
  */
 public class SocketConnector extends WebSocketClient {
     private RevoltBridge bridge;
+    private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 
     SocketConnector(URI uri, RevoltBridge bridge) {
         super(uri);
@@ -27,6 +32,11 @@ public class SocketConnector extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         this.bridge.dispatch(new WSOpenEvent());
+
+        executorService.scheduleAtFixedRate(() -> {
+            PingPacket ping = new PingPacket();
+            this.send(ping.toString());
+        }, 10, 10, TimeUnit.SECONDS);
     }
 
     @Override
