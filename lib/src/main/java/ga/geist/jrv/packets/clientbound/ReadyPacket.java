@@ -43,11 +43,11 @@ public class ReadyPacket implements ClientboundPacket {
             JSONObject channel = channels.getJSONObject(i);
 
             if (channel.optString("channel_type").equals("Group"))
-                gdmList.add(GroupDM.fromJSON(channel));
+                gdmList.add(GroupDM.fromJSON(channel, bridge));
             else if (channel.optString("channel_type").equals("DirectMessage"))
-                dmList.add(DirectMessage.fromJSON(channel));
+                dmList.add(DirectMessage.fromJSON(channel, bridge));
 
-            channelList.add(new Channel(channel.optString("channel_type"), channel.optString("_id")));
+            channelList.add(new Channel(channel.optString("channel_type"), channel.optString("_id"), bridge));
         }
 
         for (Channel channel : channelList) {

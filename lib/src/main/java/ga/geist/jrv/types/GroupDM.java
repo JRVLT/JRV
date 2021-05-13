@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import ga.geist.jrv.RevoltBridge;
+
 /**
  * Group DM: DM with multiple recipients
  */
@@ -80,10 +82,11 @@ public class GroupDM extends Channel {
      * @param description  Description
      * @param recipients   Recipient array
      * @param shortMessage Last message as ShortMessage
+     * @param bridge       Revolt bridge
      */
     public GroupDM(String type, String id, String nonce, String name, String owner, String description,
-            String[] recipients, ShortMessage shortMessage) {
-        super(type, id);
+            String[] recipients, ShortMessage shortMessage, RevoltBridge bridge) {
+        super(type, id, bridge);
         this.nonce = nonce;
         this.name = name;
         this.owner = owner;
@@ -96,9 +99,10 @@ public class GroupDM extends Channel {
      * Create a GDM from Revolt API JSON
      * 
      * @param object JSON object
+     * @param bridge Revolt bridge
      * @return New instance with data from the JSON object
      */
-    public static GroupDM fromJSON(JSONObject object) {
+    public static GroupDM fromJSON(JSONObject object, RevoltBridge bridge) {
         JSONObject msgObject;
 
         if (object.optJSONObject("shortMessage") == null) {
@@ -114,6 +118,6 @@ public class GroupDM extends Channel {
 
         return new GroupDM(object.optString("channel_type"), object.optString("_id"), object.optString("nonce"),
                 object.optString("name"), object.optString("owner"), object.optString("description"),
-                recipientList.toArray(new String[recipientList.size()]), message);
+                recipientList.toArray(new String[recipientList.size()]), message, bridge);
     }
 }
