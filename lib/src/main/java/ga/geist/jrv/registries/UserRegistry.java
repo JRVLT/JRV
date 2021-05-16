@@ -3,6 +3,7 @@ package ga.geist.jrv.registries;
 import java.util.HashMap;
 import java.util.Map;
 
+import ga.geist.jrv.constants.APIConstants;
 import ga.geist.jrv.types.User;
 
 /**
@@ -51,5 +52,14 @@ public class UserRegistry {
         if (!has(id))
             return null;
         return users.get(id);
+    }
+
+    /**
+     * Initialize a user registry
+     */
+    public UserRegistry() {
+        // Register system user
+        this.add(APIConstants.SYSTEM_USER_ID,
+                new User(APIConstants.SYSTEM_USER_ID, "SystemUser", 0, "online", "none", "", true));
     }
 }
