@@ -1,0 +1,86 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
+
+group = "ga.geist"
+archivesBaseName = "jrv"
+version = "0.0.7"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.1'
+
+    api 'org.json:json:20210307'
+    api 'org.apache.httpcomponents.client5:httpclient5:5.0.3'
+    api 'org.java-websocket:Java-WebSocket:1.5.2'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadocJar {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+sourcesJar {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+shadowJar {
+  minimize()
+}
+
+artifacts {
+    archives javadocJar, sourcesJar, shadowJar
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            pom {
+                name = 'The Java Revolt Bridge'
+                description = 'The first Java client library for interacting with the Revolt chat platform'
+                url = 'https://github.com/JRVLT/JRV'
+                licenses {
+                    license {
+                        name = 'BSD 3-Clause License'
+                        url = 'https://raw.githubusercontent.com/JRVLT/JRV/dev/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'infi'
+                        name = 'SP46'
+                        email = 'jrv@geist.ga'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/JRVLT/JRV.git'
+                    developerConnection = 'scm:git:ssh://github.com/JRVLT/JRV.git'
+                    url = 'https://github.com/JRVLT/JRV'
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.maven
+}
