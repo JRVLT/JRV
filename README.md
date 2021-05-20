@@ -5,7 +5,34 @@ The first Java client library for interacting with the Revolt chat platform.
 ### Documentation
 
 **See the [documentation at javadoc.io](https://www.javadoc.io/doc/ga.geist.jrv/jrv/latest/index.html)** or inline in your favorite IDE.
-  
+
+### Usage
+
+You can see usage instructions and the current version on **[The Central Repository](https://search.maven.org/artifact/ga.geist.jrv/jrv)**.
+
+#### Gradle  
+```groovy
+// Groovy DSL
+implementation "ga.geist.jrv:jrv:[current version]"
+
+// Kotlin
+implementation("ga.geist.jrv:jrv:[current version]")
+```
+
+#### Maven 
+```xml
+<dependency>
+  <groupId>ga.geist.jrv</groupId>
+  <artifactId>jrv</artifactId>
+  <version>[current version]</version>
+</dependency>
+```
+
+#### SBT
+```c
+libraryDependencies += "ga.geist.jrv" % "jrv" % "[current version]"
+```
+
 ### Example Application
 
 This is a very simple example application implemented in Java. It replies to any message with the content "`?jrv`" with "The Java Revolt Bridge".
