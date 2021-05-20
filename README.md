@@ -1,9 +1,53 @@
 # ![The Java Revolt Bridge](banner.png)  
   
-The Java Revolt Bridge is an experimental (version 0) [Revolt](https://revolt.chat) API client.  
+The first Java client library for interacting with the Revolt chat platform.  
   
-A documentation website and a manual are coming very, very soon. Meanwhile, please refer to the included Javadoc, which has 100% coverage.  
+### Documentation
+
+**See the [documentation at javadoc.io](https://www.javadoc.io/doc/ga.geist.jrv/jrv/latest/index.html)** or inline in your favorite IDE.
   
+### Example Application
+
+This is a very simple example application implemented in Java. It replies to any message with the content "`?jrv`" with "The Java Revolt Bridge".
+```java
+import ga.geist.jrv.RevoltBridge;
+import ga.geist.jrv.RevoltEventListener;
+import ga.geist.jrv.auth.AuthStrategy;
+import ga.geist.jrv.auth.ExistingSession;
+import ga.geist.jrv.events.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class App {
+    public static class EventManager extends RevoltEventListener {
+        @Override
+        public void onEvent(Event event, RevoltBridge bridge) {
+            if (event instanceof WSOpenEvent) {
+                AuthStrategy auth = new ExistingSession(System.getenv("REVOLT_SESSION_ID"), System.getenv("REVOLT_SESSION_TOKEN"), System.getenv("REVOLT_USER_ID"));
+                bridge.authenticate(auth);
+            } else if (event instanceof WSErrorEvent) {
+                ((WSErrorEvent)event).getException().printStackTrace();
+            } else if (event instanceof MessageEvent) {
+                MessageEvent msg = (MessageEvent)event;
+
+                if (msg.getMessage().getContent().equals("?jrv")) {
+                    msg.getMessage().getChannel().sendMessage("The Java Revolt Bridge");
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws URISyntaxException {
+        RevoltBridge jrv = new RevoltBridge(new URI("https://api.revolt.chat"));
+
+        jrv.registerEventListener(new EventManager());
+    }
+}
+```
+
+### The Library in Use
+
 You can see this library in use at [Unofficial REVOLT for Fabric](https://rvf.geist.ga) ([source code repository](https://gitlab.insrt.uk/infi/rvfabric)).  
 
 ### Warning  
