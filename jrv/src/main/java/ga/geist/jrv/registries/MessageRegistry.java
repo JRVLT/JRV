@@ -16,7 +16,7 @@ public class MessageRegistry {
      * 
      * @return Messages map
      */
-    public Map<String, Message> getGroupDMs() {
+    public Map<String, Message> getMessages() {
         return messages;
     }
 
