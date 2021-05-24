@@ -13,7 +13,7 @@ public class MessageRegistry {
         @Override
         protected boolean removeEldestEntry(Map.Entry<String, Message> eldest) {
             return size() > 500;
-        };
+        }
     };
 
     /**
