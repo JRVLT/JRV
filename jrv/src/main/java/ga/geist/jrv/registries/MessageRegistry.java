@@ -1,6 +1,6 @@
 package ga.geist.jrv.registries;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import ga.geist.jrv.types.Message;
@@ -9,7 +9,12 @@ import ga.geist.jrv.types.Message;
  * Registry for Messages
  */
 public class MessageRegistry {
-    private final Map<String, Message> messages = new HashMap<>();
+    private final Map<String, Message> messages = new LinkedHashMap<>() {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<String, Message> eldest) {
+            return size() > 500;
+        };
+    };
 
     /**
      * Get the map of messages
