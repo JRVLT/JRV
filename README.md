@@ -4,25 +4,26 @@ The first Java client library for interacting with the Revolt chat platform.
   
 ### Documentation
 
-**See the [documentation at javadoc.io](https://www.javadoc.io/doc/ga.geist.jrv/jrv/latest/index.html)** or inline in your favorite IDE.
+**See the [documentation at javadoc.io](https://www.javadoc.io/doc/ga.geist/jrv/latest/index.html)** or inline in your favorite IDE.
 
 ### Usage
 
-You can see usage instructions and the current version on **[The Central Repository](https://search.maven.org/artifact/ga.geist.jrv/jrv)**.
+You can see usage instructions and the current version on **[The Central Repository](https://search.maven.org/artifact/ga.geist/jrv)**.
+
 
 #### Gradle  
 ```groovy
 // Groovy DSL
-implementation "ga.geist.jrv:jrv:[current version]"
+implementation "ga.geist:jrv:[current version]"
 
 // Kotlin
-implementation("ga.geist.jrv:jrv:[current version]")
+implementation("ga.geist:jrv:[current version]")
 ```
 
 #### Maven 
 ```xml
 <dependency>
-  <groupId>ga.geist.jrv</groupId>
+  <groupId>ga.geist</groupId>
   <artifactId>jrv</artifactId>
   <version>[current version]</version>
 </dependency>
@@ -30,7 +31,7 @@ implementation("ga.geist.jrv:jrv:[current version]")
 
 #### SBT
 ```c
-libraryDependencies += "ga.geist.jrv" % "jrv" % "[current version]"
+libraryDependencies += "ga.geist" % "jrv" % "[current version]"
 ```
 
 ### Example Application
