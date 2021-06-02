@@ -12,8 +12,8 @@ public class MessageUpdateEvent extends Event {
     /**
      * Construct a new Message Update Event
      * 
-     * @param oldMessage
-     * @param newMessage
+     * @param oldMessage Old mmessage
+     * @param newMessage New message
      */
     public MessageUpdateEvent(Message oldMessage, Message newMessage) {
         this.oldMessage = oldMessage;

@@ -9,7 +9,7 @@ import ga.geist.jrv.types.Message;
  * Registry for Messages
  */
 public class MessageRegistry {
-    private final Map<String, Message> messages = new LinkedHashMap<>() {
+    private final Map<String, Message> messages = new LinkedHashMap<String, Message>() {
         @Override
         protected boolean removeEldestEntry(Map.Entry<String, Message> eldest) {
             return size() > 500;

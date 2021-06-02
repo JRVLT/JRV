@@ -57,6 +57,7 @@ public class MessageCore {
      * 
      * @param channelId ID of the channel to fetch from
      * @param before    Fetch messages older than the message specified in "before".
+     * @param bridge    Revolt Bridge
      * @return An array of 50 (or less) messages.
      */
     public static Message[] fetchMessages(String channelId, Message before, RevoltBridge bridge) {
