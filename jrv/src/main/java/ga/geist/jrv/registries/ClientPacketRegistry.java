@@ -19,6 +19,9 @@ public class ClientPacketRegistry {
     public ClientPacketRegistry() {
         add("Ready", new ReadyPacket());
         add("Message", new MessagePacket());
+        add("MessageUpdate", new MessageUpdatePacket());
+        add("ChannelStartTyping", new ChannelStartTypingPacket());
+        add("ChannelStopTyping", new ChannelStopTypingPacket());
     }
 
     /**
