@@ -13,7 +13,7 @@ public class Message {
     private String id;
     private String nonce;
     private String content;
-    private Attachment attachment;
+    private Attachment[] attachments;
 
     /**
      * Get the author of the message
@@ -65,27 +65,27 @@ public class Message {
      * 
      * @return The attachment of the message. <strong>May be null.</strong>
      */
-    public Attachment getAttachment() {
-        return attachment;
+    public Attachment[] getAttachments() {
+        return attachments;
     }
 
     /**
      * Construct a message
      * 
-     * @param author     Message author
-     * @param channel    Message channel
-     * @param id         Message ID
-     * @param nonce      Message nonce
-     * @param content    Message content
-     * @param attachment Message attachment
+     * @param author      Message author
+     * @param channel     Message channel
+     * @param id          Message ID
+     * @param nonce       Message nonce
+     * @param content     Message content
+     * @param attachments Message attachment array
      */
-    public Message(User author, Channel channel, String id, String nonce, String content, Attachment attachment) {
+    public Message(User author, Channel channel, String id, String nonce, String content, Attachment[] attachments) {
         this.author = author;
         this.channel = channel;
         this.id = id;
         this.nonce = nonce;
         this.content = content;
-        this.attachment = attachment;
+        this.attachments = attachments;
     }
 
     /**
@@ -99,6 +99,6 @@ public class Message {
         return new Message(bridge.getRegistries().getUserRegistry().get(object.getString("author")),
                 bridge.getRegistries().getChannelRegistry().get(object.getString("channel")), object.getString("_id"),
                 object.optString("nonce"), object.optString("content"),
-                Attachment.fromJSON(object.optJSONObject("attachment")));
+                Attachment.fromJSONArray(object.optJSONArray("attachments")));
     }
 }

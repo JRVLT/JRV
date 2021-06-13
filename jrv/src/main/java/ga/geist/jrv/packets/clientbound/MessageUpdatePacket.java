@@ -26,7 +26,7 @@ public class MessageUpdatePacket implements ClientboundPacket {
 
         if (contentChanged) {
             newMessage = new Message(oldMessage.getAuthor(), oldMessage.getChannel(), oldMessage.getId(),
-                    oldMessage.getNonce(), data.optString("content"), oldMessage.getAttachment());
+                    oldMessage.getNonce(), data.optString("content"), oldMessage.getAttachments());
 
             client.getBridge().getRegistries().getMessageRegistry().add(messageObject.getString("id"), newMessage);
             client.getBridge().dispatch(new MessageUpdateEvent(oldMessage, newMessage));

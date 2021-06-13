@@ -74,10 +74,10 @@ public class MessageCore {
 
             User author = bridge.getRegistries().getUserRegistry().get(messageObject.getString("author"));
             Channel channel = bridge.getRegistries().getChannelRegistry().get(messageObject.getString("channel"));
-            Attachment attachment = Attachment.fromJSON(messageObject.getJSONObject("attachment"));
+            Attachment[] attachments = Attachment.fromJSONArray(messageObject.getJSONArray("attachments"));
 
             Message message = new Message(author, channel, messageObject.getString("_id"),
-                    messageObject.getString("nonce"), messageObject.getString("content"), attachment);
+                    messageObject.getString("nonce"), messageObject.getString("content"), attachments);
 
             messages.add(message);
         }

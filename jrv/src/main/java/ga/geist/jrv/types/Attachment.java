@@ -1,5 +1,9 @@
 package ga.geist.jrv.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -103,5 +107,23 @@ public class Attachment {
 
         return new Attachment(metadata, object.getString("filename"), object.getString("content_type"),
                 object.getLong("size"), object.getString("_id"), object.getString("tag"));
+    }
+
+    /**
+     * Runs Attachment.fromJSON on a JSONArray
+     * 
+     * @param array JSONArray of objects
+     * @return Attachment object array
+     */
+    public static Attachment[] fromJSONArray(JSONArray array) {
+        List<Attachment> attachments = new ArrayList<>();
+
+        for (int i = 0; i < array.length(); i++) {
+            Attachment attachment = Attachment.fromJSON(array.optJSONObject(i));
+            if (attachment != null)
+                attachments.add(attachment);
+        }
+
+        return attachments.toArray(new Attachment[0]);
     }
 }
