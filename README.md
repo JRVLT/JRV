@@ -2,6 +2,10 @@
   
 The first Java client library for interacting with the Revolt chat platform.  
   
+### The Java Revolt Bridge on Revolt  
+  
+There is a Revolt server: https://app.revolt.chat/invite/2V2v0hzN
+
 ### Documentation
 
 **See the [documentation at javadoc.io](https://www.javadoc.io/doc/ga.geist/jrv/latest/index.html)** or inline in your favorite IDE.
