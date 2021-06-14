@@ -9,14 +9,15 @@ import ga.geist.jrv.RevoltBridge;
  */
 public class SavedMessageDM extends Channel {
     private String user;
+    private RevoltBridge bridge;
 
     /**
      * Get the user
      * 
      * @return Get the user
      */
-    public String getUser() {
-        return user;
+    public User getUser() {
+        return bridge.getRegistries().getUserRegistry().get(user);
     }
 
     /**
@@ -30,6 +31,7 @@ public class SavedMessageDM extends Channel {
     public SavedMessageDM(String type, String id, String user, RevoltBridge bridge) {
         super(type, id, bridge);
         this.user = user;
+        this.bridge = bridge;
     }
 
     /**

@@ -8,12 +8,13 @@ import ga.geist.jrv.RevoltBridge;
  * Message class
  */
 public class Message {
-    private User author;
-    private Channel channel;
+    private String author;
+    private String channel;
     private String id;
     private String nonce;
     private String content;
     private Attachment[] attachments;
+    private RevoltBridge bridge;
 
     /**
      * Get the author of the message
@@ -21,7 +22,7 @@ public class Message {
      * @return The author of the message
      */
     public User getAuthor() {
-        return author;
+        return bridge.getRegistries().getUserRegistry().get(author);
     }
 
     /**
@@ -30,7 +31,7 @@ public class Message {
      * @return The channel the message was posted to
      */
     public Channel getChannel() {
-        return channel;
+        return bridge.getRegistries().getChannelRegistry().get(channel);
     }
 
     /**
@@ -78,14 +79,17 @@ public class Message {
      * @param nonce       Message nonce
      * @param content     Message content
      * @param attachments Message attachment array
+     * @param bridge      Revolt bridge
      */
-    public Message(User author, Channel channel, String id, String nonce, String content, Attachment[] attachments) {
-        this.author = author;
-        this.channel = channel;
+    public Message(User author, Channel channel, String id, String nonce, String content, Attachment[] attachments,
+            RevoltBridge bridge) {
+        this.author = author.getId();
+        this.channel = channel.getId();
         this.id = id;
         this.nonce = nonce;
         this.content = content;
         this.attachments = attachments;
+        this.bridge = bridge;
     }
 
     /**
@@ -99,6 +103,6 @@ public class Message {
         return new Message(bridge.getRegistries().getUserRegistry().get(object.getString("author")),
                 bridge.getRegistries().getChannelRegistry().get(object.getString("channel")), object.getString("_id"),
                 object.optString("nonce"), object.optString("content"),
-                Attachment.fromJSONArray(object.optJSONArray("attachments")));
+                Attachment.fromJSONArray(object.optJSONArray("attachments")), bridge);
     }
 }

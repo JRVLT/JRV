@@ -77,7 +77,7 @@ public class MessageCore {
             Attachment[] attachments = Attachment.fromJSONArray(messageObject.getJSONArray("attachments"));
 
             Message message = new Message(author, channel, messageObject.getString("_id"),
-                    messageObject.getString("nonce"), messageObject.getString("content"), attachments);
+                    messageObject.getString("nonce"), messageObject.getString("content"), attachments, bridge);
 
             messages.add(message);
         }
