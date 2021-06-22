@@ -116,6 +116,9 @@ public class Attachment {
      * @return Attachment object array
      */
     public static Attachment[] fromJSONArray(JSONArray array) {
+        if (array == null)
+            return new Attachment[] {};
+
         List<Attachment> attachments = new ArrayList<>();
 
         for (int i = 0; i < array.length(); i++) {
