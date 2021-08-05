@@ -16,6 +16,7 @@ public class RegistryRegistry {
     private DirectMessageRegistry dmRegistry;
     private ChannelRegistry channelRegistry;
     private MessageRegistry messageRegistry;
+    private ServerRegistry serverRegistry;
 
     /**
      * Get registry of group DMs
@@ -63,6 +64,15 @@ public class RegistryRegistry {
     }
 
     /**
+     * Get registry of servers
+     * 
+     * @return Registry of servers
+     */
+    public ServerRegistry getServerRegistry() {
+        return serverRegistry;
+    }
+
+    /**
      * Construct an instance
      */
     public RegistryRegistry() {
@@ -71,5 +81,6 @@ public class RegistryRegistry {
         this.dmRegistry = new DirectMessageRegistry();
         this.channelRegistry = new ChannelRegistry();
         this.messageRegistry = new MessageRegistry();
+        this.serverRegistry = new ServerRegistry();
     }
 }

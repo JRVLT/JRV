@@ -12,6 +12,7 @@ import ga.geist.jrv.packets.ClientboundPacket;
 import ga.geist.jrv.types.Channel;
 import ga.geist.jrv.types.DirectMessage;
 import ga.geist.jrv.types.GroupDM;
+import ga.geist.jrv.types.Server;
 import ga.geist.jrv.types.User;
 
 /**
@@ -61,11 +62,26 @@ public class ReadyPacket implements ClientboundPacket {
         }
     }
 
+    private void addServers(JSONObject message, RevoltBridge bridge) {
+        JSONArray servers = message.getJSONArray("servers");
+
+        List<Server> serverList = new ArrayList<>();
+
+        for (int i = 0; i < servers.length(); i++) {
+            serverList.add(Server.fromJSON(servers.getJSONObject(i), bridge));
+        }
+
+        for (Server server : serverList) {
+            bridge.getRegistries().getServerRegistry().add(server.getId(), server);
+        }
+    }
+
     @Override
     public void pass(String stringMessage, SocketConnector client) {
         JSONObject message = new JSONObject(stringMessage);
 
         addUsers(message, client.getBridge());
         addChannels(message, client.getBridge());
+        addServers(message, client.getBridge());
     }
 }

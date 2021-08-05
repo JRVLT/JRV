@@ -30,7 +30,7 @@ public class RestUtils {
      *         case of an error.
      */
     public static String postJson(URI uri, JSONObject object) {
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {            
             HttpPost post = new HttpPost(uri);
             post.setEntity(new StringEntity(object.toString()));
 

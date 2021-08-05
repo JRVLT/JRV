@@ -47,6 +47,8 @@ public class ChannelRegistry {
      * @return The channel
      */
     public Channel get(String id) {
+        if (id == null)
+            return null;
         if (!has(id))
             return null;
         return channels.get(id);
