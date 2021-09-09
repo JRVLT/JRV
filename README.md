@@ -45,7 +45,7 @@ This is a very simple example application implemented in Java. It replies to any
 import ga.geist.jrv.RevoltBridge;
 import ga.geist.jrv.RevoltEventListener;
 import ga.geist.jrv.auth.AuthStrategy;
-import ga.geist.jrv.auth.ExistingSession;
+import ga.geist.jrv.auth.BotToken;
 import ga.geist.jrv.events.*;
 
 import java.net.URI;
@@ -56,7 +56,7 @@ public class App {
         @Override
         public void onEvent(Event event, RevoltBridge bridge) {
             if (event instanceof WSOpenEvent) {
-                AuthStrategy auth = new ExistingSession(System.getenv("REVOLT_SESSION_ID"), System.getenv("REVOLT_SESSION_TOKEN"), System.getenv("REVOLT_USER_ID"));
+                AuthStrategy auth = new BotToken(System.getenv("REVOLT_TOKEN"));
                 bridge.authenticate(auth);
             } else if (event instanceof WSErrorEvent) {
                 ((WSErrorEvent)event).getException().printStackTrace();
