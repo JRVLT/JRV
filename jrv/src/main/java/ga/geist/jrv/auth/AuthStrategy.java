@@ -5,23 +5,9 @@ package ga.geist.jrv.auth;
  */
 public interface AuthStrategy {
     /**
-     * Get the current session token
+     * Get the bot token
      * 
-     * @return The current session token
+     * @return The bot token
      */
-    public String getSessionToken();
-
-    /**
-     * Get the current session ID
-     * 
-     * @return The current session ID
-     */
-    public String getSessionId();
-
-    /**
-     * Get the current user ID
-     * 
-     * @return The current user ID
-     */
-    public String getUserId();
+    public String getBotToken();
 }

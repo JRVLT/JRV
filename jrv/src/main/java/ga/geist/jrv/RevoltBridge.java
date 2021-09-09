@@ -24,9 +24,8 @@ public class RevoltBridge {
     private ClientPacketRegistry s2cPacketRegistry = new ClientPacketRegistry();
     private SocketConnector connector;
 
-    private String sessionToken;
-    private String sessionId;
-    private String selfUserID;
+    private String authToken;
+    private String activeUserId;
 
     private JSONObject instanceRoot;
 
@@ -39,8 +38,11 @@ public class RevoltBridge {
     public RevoltBridge(URI restUrl) throws URISyntaxException {
         this.restUrl = restUrl;
         this.instanceRoot = new JSONObject(RestUtils.getJson(restUrl));
-        this.connector = new SocketConnector(new URI(this.instanceRoot.getString("ws")), this);
 
+        JSONObject userInfo = new JSONObject(RestUtils.getJson(restUrl.resolve("/auth/user")));
+        this.activeUserId = userInfo.getString("id");
+
+        this.connector = new SocketConnector(new URI(this.instanceRoot.getString("ws")), this);
         this.connector.connect();
     }
 
@@ -63,30 +65,21 @@ public class RevoltBridge {
     }
 
     /**
-     * Retrieve the active session.
+     * Retrieve the active auth token.
      * 
-     * @return The active session token
+     * @return The active auth token
      */
-    public String getSessionId() {
-        return sessionId;
+    public String getAuthToken() {
+        return authToken;
     }
 
     /**
-     * Retrieve the active session token
-     * 
-     * @return The active session token
-     */
-    public String getSessionToken() {
-        return sessionToken;
-    }
-
-    /**
-     * Retrieve the active user ID
+     * Retrieve the active user ID.
      * 
      * @return The active user ID
      */
-    public String getSelfUserId() {
-        return selfUserID;
+    public String getActiveUserId() {
+        return activeUserId;
     }
 
     /**
@@ -144,11 +137,9 @@ public class RevoltBridge {
      * @param strategy AuthStrategy (for example, ExistingSession)
      */
     public void authenticate(AuthStrategy strategy) {
-        this.sessionId = strategy.getSessionId();
-        this.sessionToken = strategy.getSessionToken();
-        this.selfUserID = strategy.getUserId();
+        this.authToken = strategy.getBotToken();
 
-        AuthenticatePacket authPacket = new AuthenticatePacket(this.sessionId, this.sessionToken, this.selfUserID);
+        AuthenticatePacket authPacket = new AuthenticatePacket(this.authToken);
 
         this.connector.send(authPacket.toString());
     }

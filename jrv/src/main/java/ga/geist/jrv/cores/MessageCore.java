@@ -38,7 +38,7 @@ public class MessageCore {
         body.put("nonce", makeNonce());
 
         AuthenticatedRestUtils.postJson(bridge.getRestUrl().resolve(String.format("/channels/%s/messages", channelId)),
-                body, bridge.getSelfUserId(), bridge.getSessionToken());
+                body, bridge.getAuthToken());
     }
 
     /**
@@ -65,8 +65,7 @@ public class MessageCore {
         URI url = bridge.getRestUrl().resolve(hasBefore ? String.format("/channels/%s/messages", channelId)
                 : String.format("/channels/%s/messages?before=%s", channelId, before.getId()));
 
-        JSONArray messageArray = new JSONArray(
-                AuthenticatedRestUtils.getJson(url, bridge.getSelfUserId(), bridge.getSessionToken()));
+        JSONArray messageArray = new JSONArray(AuthenticatedRestUtils.getJson(url, bridge.getAuthToken()));
         List<Message> messages = new ArrayList<>();
 
         for (int i = 0; i < messageArray.length(); i++) {

@@ -22,20 +22,19 @@ public class AuthenticatedRestUtils {
     }
 
     /**
-     * HTTP POST to a URL with REVOLT authentification + a JSONObject body
+     * HTTP POST to a URL with Revolt authentification + a JSONObject body
      * 
-     * @param uri          The URI to POST to
-     * @param object       A JSON object to serve as the body
-     * @param userId       User ID
-     * @param sessionToken Session Token
+     * @param uri       The URI to POST to
+     * @param object    A JSON object to serve as the body
+     * @param authToken The authentication token
      * @return A string containing the response body. Attempts to return "{}" in
      *         case of an error.
      */
-    public static String postJson(URI uri, JSONObject object, String userId, String sessionToken) {
+    public static String postJson(URI uri, JSONObject object, String authToken) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost post = new HttpPost(uri);
-            post.setHeader("x-user-id", userId);
-            post.setHeader("x-session-token", sessionToken);
+            post.setHeader("x-bot-token", authToken);
+            post.setHeader("Content-Type", "application/json");
             post.setEntity(new StringEntity(object.toString()));
 
             try (CloseableHttpResponse response = httpClient.execute(post)) {
@@ -52,17 +51,15 @@ public class AuthenticatedRestUtils {
     /**
      * HTTP GET a URL with REVOLT authentification
      * 
-     * @param uri          The URI to GET
-     * @param userId       User ID
-     * @param sessionToken Session Token
+     * @param uri       The URI to GET
+     * @param authToken The authentication token
      * @return A string containing the response body. Attempts to return "{}" in
      *         case of an error.
      */
-    public static String getJson(URI uri, String userId, String sessionToken) {
+    public static String getJson(URI uri, String authToken) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet get = new HttpGet(uri);
-            get.setHeader("x-user-id", userId);
-            get.setHeader("x-session-token", sessionToken);
+            get.setHeader("x-bot-token", authToken);
 
             try (CloseableHttpResponse response = httpClient.execute(get)) {
                 HttpEntity entity = response.getEntity();
