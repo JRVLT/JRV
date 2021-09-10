@@ -25,7 +25,6 @@ public class RevoltBridge {
     private SocketConnector connector;
 
     private String authToken;
-    private String activeUserId;
 
     private JSONObject instanceRoot;
 
@@ -38,9 +37,6 @@ public class RevoltBridge {
     public RevoltBridge(URI restUrl) throws URISyntaxException {
         this.restUrl = restUrl;
         this.instanceRoot = new JSONObject(RestUtils.getJson(restUrl));
-
-        JSONObject userInfo = new JSONObject(RestUtils.getJson(restUrl.resolve("/auth/user")));
-        this.activeUserId = userInfo.getString("id");
 
         this.connector = new SocketConnector(new URI(this.instanceRoot.getString("ws")), this);
         this.connector.connect();
@@ -71,15 +67,6 @@ public class RevoltBridge {
      */
     public String getAuthToken() {
         return authToken;
-    }
-
-    /**
-     * Retrieve the active user ID.
-     * 
-     * @return The active user ID
-     */
-    public String getActiveUserId() {
-        return activeUserId;
     }
 
     /**
