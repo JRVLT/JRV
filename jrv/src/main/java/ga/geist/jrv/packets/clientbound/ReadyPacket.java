@@ -14,6 +14,7 @@ import ga.geist.jrv.types.DirectMessage;
 import ga.geist.jrv.types.GroupDM;
 import ga.geist.jrv.types.Server;
 import ga.geist.jrv.types.User;
+import ga.geist.jrv.utils.AuthenticatedRestUtils;
 
 /**
  * Ready packet
@@ -68,11 +69,31 @@ public class ReadyPacket implements ClientboundPacket {
         List<Server> serverList = new ArrayList<>();
 
         for (int i = 0; i < servers.length(); i++) {
+            addUsersFromServer(servers.getJSONObject(i).optString("_id"), bridge);
             serverList.add(Server.fromJSON(servers.getJSONObject(i), bridge));
         }
 
         for (Server server : serverList) {
             bridge.getRegistries().getServerRegistry().add(server.getId(), server);
+        }
+    }
+
+    private void addUsersFromServer(String serverId, RevoltBridge bridge) {
+        String response = AuthenticatedRestUtils
+                .getJson(bridge.getRestUrl().resolve("/servers/" + serverId + "/members"), bridge.getAuthToken());
+        System.out.println(response);
+        JSONObject json = new JSONObject(response);
+
+        JSONArray users = json.getJSONArray("users");
+
+        List<User> userList = new ArrayList<>();
+
+        for (int i = 0; i < users.length(); i++) {
+            userList.add(User.fromJSON(users.getJSONObject(i)));
+        }
+
+        for (User user : userList) {
+            bridge.getRegistries().getUserRegistry().add(user.getId(), user);
         }
     }
 
