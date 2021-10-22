@@ -15,6 +15,7 @@ public class PingPacket implements ServerboundPacket {
         JSONObject obj = new JSONObject();
         obj.put("type", "Ping");
         obj.put("time", new Date().getTime());
+        obj.put("data", 0);
 
         return obj.toString();
     }
