@@ -12,7 +12,7 @@ public class MessageUpdateEvent extends Event {
     /**
      * Construct a new Message Update Event
      * 
-     * @param oldMessage Old mmessage
+     * @param oldMessage Old message
      * @param newMessage New message
      */
     public MessageUpdateEvent(Message oldMessage, Message newMessage) {

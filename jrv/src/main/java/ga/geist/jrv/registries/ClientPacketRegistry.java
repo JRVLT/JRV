@@ -20,6 +20,7 @@ public class ClientPacketRegistry {
         add("Ready", new ReadyPacket());
         add("Message", new MessagePacket());
         add("MessageUpdate", new MessageUpdatePacket());
+        add("MessageDelete", new MessageDeletePacket());
         add("ChannelStartTyping", new ChannelStartTypingPacket());
         add("ChannelStopTyping", new ChannelStopTypingPacket());
     }
